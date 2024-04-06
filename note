@@ -1,0 +1,8 @@
+npm i
+npm init -y
+npm i --save express
+npm install ejs --save    //allow to pass data to html
+npm i --save request
+npm i body-parser
+npm i mysql
+npm i express-session
