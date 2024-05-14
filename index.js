@@ -1,4 +1,5 @@
 var express = require('express')
+var paypal = require('paypal-rest-sdk');
 var ejs = require('ejs')
 var bodyParser = require('body-parser')
 var mysql = require('mysql')
@@ -26,8 +27,8 @@ function isProductInCart(cart, id){
 }
 app.get('/cart', function(req,res){
 
-    var cart = req.session.cart;
-    var total = req.session.total;
+    var cart = req.session.cart ||[];
+    var total = req.session.total || 0;
 
     res.render('pages/cart', {cart:cart, total:total});
 
@@ -187,6 +188,8 @@ app.post('/place_order', function(req, res){
     var status = "not paid";
     var date = new Date();
     var products_ids = "";
+    var id = Date.now();
+    req.session.order_id=id;
 
     var con = mysql.createConnection({
         host:'localhost',
@@ -196,7 +199,8 @@ app.post('/place_order', function(req, res){
         port:3307
     });
 
-    var cart = req.session.cart;
+    var cart = req.session.cart ||[];
+    var products_ids = "";
     for(i=0; i<cart.length; i++){
         products_ids = products_ids +","+ cart[i].id
     }
@@ -207,9 +211,9 @@ app.post('/place_order', function(req, res){
             console.log(err);
         }
         else{
-            var query = "INSERT INTO orders(cost,name, email, status, city, address, phone, date, products_ids) VALUES ?";
+            var query = "INSERT INTO orders(id,cost,name, email, status, city, address, phone, date, products_ids) VALUES ?";
             var values = [
-                [cost,name, email, status, city, address, phone, date, products_ids]
+                [id,cost,name, email, status, city, address, phone, date, products_ids]
             ];
             con.query(query, [values], (err, result)=>{
                 for(let i=0; i<cart.length; i++){
@@ -227,48 +231,101 @@ app.post('/place_order', function(req, res){
     })
 })
 // const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 5000 } = process.env;
-// const base = "https://api-m.sandbox.paypal.com";
-// app.get('/payment', function(req, res){
-//     res.render('pages/payment')
-// });
-
-const paypal = require('paypal-rest-sdk');
-
-
 // Initialize PayPal SDK with client ID and secret
 paypal.configure({
-  'mode': 'sandbox', // sandbox or live
-  'client_id': process.env.PAYPAL_CLIENT_ID,
-  'client_secret': process.env.PAYPAL_CLIENT_SECRET
+    'mode': 'sandbox', // sandbox or live
+    'client_id': process.env.PAYPAL_CLIENT_ID,
+    'client_secret': process.env.PAYPAL_CLIENT_SECRET
+  });
+app.get('/payment', function(req, res){
+    var total = req.session.total
+    res.render('pages/payment',{total:total});
 });
 
-// Route handler for initiating PayPal payment
-app.get('/payment', function(req, res){
-  // Create a PayPal payment order
-  paypal.payment.create({
-    intent: 'sale',
-    payer: {
-      payment_method: 'paypal'
-    },
-    transactions: [{
-      amount: {
-        total: '10.00',
-        currency: 'USD'
-      }
-    }],
-    redirect_urls: {
-      return_url: '/success',
-      cancel_url: '/cancel'
-    }
-  }, function (error, payment) {
-    if (error) {
-      console.error(error);
-      // Handle error
-      res.status(500).send('Error initiating payment');
-    } else {
-      console.log('Payment created:', payment);
-      // Redirect user to PayPal for payment approval
-      res.redirect(payment.links.find(link => link.rel === 'approval_url').href);
-    }
-  });
+app.get("/verify_payment",function(req,res){
+    var transaction_id = req.query.transaction_id;
+    var order_id = req.session.order_id;
+
+    var con = mysql.createConnection({
+        host:'localhost',
+        user:'root',
+        password:'',
+        database: 'food_project',
+        port:3307
+    });
+    con.connect((err)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        else{
+            var query = "INSERT INTO payments(order_id,transaction_id,date) VALUES ?";
+            var values = [
+                [order_id,
+                transaction_id,
+                new Date()
+                ]
+            ]
+            con.query(query,[values],(err,result)=>{
+                con.query("UPDATE orders SET status='paid' WHERE id='"+order_id+"'",(err, result)=>{}
+                )
+                    res.redirect('/thank_you')
+            })
+        }
+        })
+})
+
+app.get("/thank_you",function(req,res){
+    var order_id =req.session.order_id
+    res.render("pages/thank_you",{order_id:order_id})
+});
+
+app.get("/single_product", function(req, res){
+
+    var id = req.query.id;
+    var con = mysql.createConnection({
+        host:'localhost',
+        user:'root',
+        password:'',
+        database: 'food_project',
+        port:3307
+    });
+
+    con.query("SELECT * FROM products WHERE id='"+id+"'", (err, result) => {
+        if (err) {
+            // Handle the error appropriately
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.render('pages/single_product', { result: result });
+    });
+    
+});
+
+
+app.get("/products", function(req, res){
+
+    var con = mysql.createConnection({
+        host:'localhost',
+        user:'root',
+        password:'',
+        database: 'food_project',
+        port:3307
+    });
+    con.query('SELECT * FROM products', (err, result) => {
+        if (err) {
+            // Handle the error appropriately
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.render('pages/products', { result: result });
+    });
+});
+
+
+app.get("/about", function(req, res){
+
+    res.render("pages/about")
 });

@@ -27,7 +27,7 @@
     crossorigin="anonymous" />
   <!-- font awesome style -->
   <link href="css/font-awesome.min.css" rel="stylesheet" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
@@ -45,7 +45,7 @@
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="/">
             <span>
               🍕QuickEats
             </span>
@@ -59,20 +59,20 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav  mx-auto ">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="products.html">Menu</a>
+                <a class="nav-link" href="products">Menu</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
+                <a class="nav-link" href="about">About</a>
               </li>
             </ul>
             <div class="user_option">
               <!--  <a href="" class="user_link">
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a> -->
-              <a class="cart_link" href="#">
+              <a class="cart_link" href="cart">
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                   style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -133,7 +133,7 @@
                   <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
               </form>
-              <a href="" class="order_online">
+              <a href="checkout" class="order_online">
                 Order Online
               </a>
             </div>
@@ -155,12 +155,13 @@
                       Fast Food Restaurant
                     </h1>
                     <p>
-                      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam
-                      quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos
-                      nihil ducimus libero ipsam.
+                      Your Gateway to Quick Cravings and Culinary Delights!
+                      Fuel Your Hunger with Effortless Ease. Indulge in Flavorful Expeditions Where Every Bite is a
+                      Journey Worth Savoring. Explore a World of Tantalizing Tastes, Right at Your Fingertips!
+                      Satisfaction Delivered, One Click at a Time.
                     </p>
                     <div class="btn-box">
-                      <a href="" class="btn1">
+                      <a href="products" class="btn1">
                         Order Now
                       </a>
                     </div>
@@ -178,12 +179,13 @@
                       Fast Food Restaurant
                     </h1>
                     <p>
-                      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam
-                      quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos
-                      nihil ducimus libero ipsam.
+                      Your Gateway to Quick Cravings and Culinary Delights!
+                      Fuel Your Hunger with Effortless Ease. Indulge in Flavorful Expeditions Where Every Bite is a
+                      Journey Worth Savoring. Explore a World of Tantalizing Tastes, Right at Your Fingertips!
+                      Satisfaction Delivered, One Click at a Time.
                     </p>
                     <div class="btn-box">
-                      <a href="" class="btn1">
+                      <a href="products" class="btn1">
                         Order Now
                       </a>
                     </div>
@@ -201,12 +203,13 @@
                       Fast Food Restaurant
                     </h1>
                     <p>
-                      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam
-                      quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos
-                      nihil ducimus libero ipsam.
+                      Your Gateway to Quick Cravings and Culinary Delights!
+                      Fuel Your Hunger with Effortless Ease. Indulge in Flavorful Expeditions Where Every Bite is a
+                      Journey Worth Savoring. Explore a World of Tantalizing Tastes, Right at Your Fingertips!
+                      Satisfaction Delivered, One Click at a Time.
                     </p>
                     <div class="btn-box">
-                      <a href="" class="btn1">
+                      <a href="products" class="btn1">
                         Order Now
                       </a>
                     </div>
@@ -247,7 +250,7 @@
                 <h6>
                   <span>20%</span> Off
                 </h6>
-                <a href="">
+                <a href="products">
                   Order Now <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                     style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -318,7 +321,7 @@
                 <h6>
                   <span>15%</span> Off
                 </h6>
-                <a href="">
+                <a href="products">
                   Order Now <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                     style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -414,7 +417,7 @@
                   </div>
                   <div class="detail-box">
                     <h5>
-                      <%= item.name %>
+                      <a href="single_product?id=<%= item.id %>" style="color: #fff"><%= item.name %></a>
                     </h5>
                     <p>
                       <%= item.description %>
@@ -442,72 +445,72 @@
                               <input type="hidden" name="image" value="<%= item.image %>">
 
                               <button type="submit" style="background: none; border: none;">
-                              <a>
-                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                  viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;"
-                                  xml:space="preserve">
-                                  <g>
+                                <a>
+                                  <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;"
+                                    xml:space="preserve">
                                     <g>
-                                      <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                                      <g>
+                                        <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
                          c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                                      </g>
                                     </g>
-                                  </g>
-                                  <g>
                                     <g>
-                                      <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                                      <g>
+                                        <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
                          C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
                          c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
                          C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                                      </g>
                                     </g>
-                                  </g>
-                                  <g>
                                     <g>
-                                      <path
-                                        d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                                      <g>
+                                        <path
+                                          d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
                          c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                                      </g>
                                     </g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                  <g>
-                                  </g>
-                                </svg>
-                              </a>
-                            </button>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                  </svg>
+                                </a>
+                              </button>
                             </form>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          <% }) %>
+            <% }) %>
               <!-- <div class="col-sm-6 col-lg-4 all burger">
             <div class="box">
               <div>
@@ -1119,15 +1122,15 @@
               </div>
             </div>
           </div> 
+           -->
         </div>
       </div>
-    -->
-              <div class="btn-box">
-                <a href="">
-                  View More
-                </a>
-              </div>
-        </div>
+      <div class="btn-box">
+        <a href="">
+          View More
+        </a>
+      </div>
+    </div>
   </section>
 
   <!-- end food section -->
@@ -1151,10 +1154,7 @@
               </h2>
             </div>
             <p>
-              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-              in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-              are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-              the middle of text. All
+              At QuickEats, we embody the essence of speed and efficiency. With our lightning-fast service and quick turnaround times, we ensure that you spend less time waiting and more time enjoying delicious meals. Whether you're on-the-go or craving a quick bite, we've got you covered. Our commitment to delivering quality food swiftly is unmatched, making us your ultimate destination for satisfying hunger in a hurry. Experience the convenience of food done right with QuickEats.
             </p>
             <a href="">
               Read More
@@ -1319,24 +1319,23 @@
               🍕QuickEats
             </a>
             <p>
-              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin
-              words, combined with
+              Join our online community and be the first to know about special discounts and limited-time offers. You and your feedback matters to us, and we love hearing from you. Connect with us today and let's make your experience even more enjoyable.
             </p>
             <div class="footer_social">
               <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
+                <i class="fab fa-facebook" aria-hidden="true"></i>
               </a>
               <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <i class="fab fa-twitter" aria-hidden="true"></i>
               </a>
               <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
               </a>
               <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
+                <i class="fab fa-instagram" aria-hidden="true"></i>
               </a>
               <a href="">
-                <i class="fa fa-pinterest" aria-hidden="true"></i>
+                <i class="fab fa-pinterest" aria-hidden="true"></i>
               </a>
             </div>
           </div>
