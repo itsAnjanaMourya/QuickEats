@@ -52,7 +52,7 @@ app.get('/', function(req, res){
     var con = mysql.createConnection({
         host:'localhost',
         user:'root',
-        password:'',
+        password:'anna123',
         database: 'food_project',
         port:3307
     });
@@ -104,12 +104,6 @@ app.post('/add_to_cart', function(req, res){
     // return to cart page
     res.redirect('/cart');
 });
-
-// Helper function to check if a product with a given ID is already in the cart
-function isProductInCart(cart, productId) {
-    return cart.some(item => item.id === productId);
-}
-
 
 
 
@@ -194,13 +188,12 @@ app.post('/place_order', function(req, res){
     var con = mysql.createConnection({
         host:'localhost',
         user:'root',
-        password:'',
+        password:'anna123',
         database: 'food_project',
         port:3307
     });
 
     var cart = req.session.cart ||[];
-    var products_ids = "";
     for(i=0; i<cart.length; i++){
         products_ids = products_ids +","+ cart[i].id
     }
@@ -230,13 +223,7 @@ app.post('/place_order', function(req, res){
 
     })
 })
-// const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 5000 } = process.env;
-// Initialize PayPal SDK with client ID and secret
-paypal.configure({
-    'mode': 'sandbox', // sandbox or live
-    'client_id': process.env.PAYPAL_CLIENT_ID,
-    'client_secret': process.env.PAYPAL_CLIENT_SECRET
-  });
+
 app.get('/payment', function(req, res){
     var total = req.session.total
     res.render('pages/payment',{total:total});
@@ -249,7 +236,7 @@ app.get("/verify_payment",function(req,res){
     var con = mysql.createConnection({
         host:'localhost',
         user:'root',
-        password:'',
+        password:'anna123',
         database: 'food_project',
         port:3307
     });
@@ -276,7 +263,7 @@ app.get("/verify_payment",function(req,res){
 })
 
 app.get("/thank_you",function(req,res){
-    var order_id =req.session.order_id
+    var order_id = req.session.order_id;
     res.render("pages/thank_you",{order_id:order_id})
 });
 
@@ -286,7 +273,7 @@ app.get("/single_product", function(req, res){
     var con = mysql.createConnection({
         host:'localhost',
         user:'root',
-        password:'',
+        password:'anna123',
         database: 'food_project',
         port:3307
     });
@@ -309,7 +296,7 @@ app.get("/products", function(req, res){
     var con = mysql.createConnection({
         host:'localhost',
         user:'root',
-        password:'',
+        password:'anna123',
         database: 'food_project',
         port:3307
     });

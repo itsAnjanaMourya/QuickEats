@@ -264,44 +264,46 @@
 
 </html>
 
-
+<!----------------------------------------------------------->
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <!-- Replace "test" with your own sandbox Business account app client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AXpKam4OYS0onzdCCvEJ_OC86nX047ZNuWBlFsvH077UOxFez2xYy8of1XpPgegIszQLiWsbHLR-ebl-&currency=USD"></script>
+    <!-- Set up a container element for the button -->
+   
+    <script>
+      paypal.Buttons({
+        // Sets up the transaction when a payment button is clicked
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: '<%= total %>' // Can also reference a variable or function
+              }
+            }]
+          });
+        },
+        // Finalize the transaction after payer approval
+        onApprove: (data, actions) => {
+          return actions.order.capture().then(function(orderData) {
+            // Successful capture! For dev/demo purposes:
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+            const transaction = orderData.purchase_units[0].payments.captures[0];
+            alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+            // When ready to go live, remove the alert and show a success message within this page. For example:
+            // const element = document.getElementById('paypal-button-container');
+            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+            // actions.redirect('thank_you.html');
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-</head>
-
-<body>
-  <script src="https://www.paypal.com/sdk/js?client-id=AXpKam4OYS0onzdCCvEJ_OC86nX047ZNuWBlFsvH077UOxFez2xYy8of1XpPgegIszQLiWsbHLR-ebl-
-&currency=USD"></script>
-  <!-- Set up a container element for the button -->
-
-  <script>
-    paypal.Buttons({
-      createOrder: (data, actions) => {
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: '<%= total %>'
-            }
-          }]
-        })
-      },
-      onApprove: (data, actions) => {
-        return actions.order.capture().then(function (orderData) {
-          console.log("Capture result:", orderData, JSON.stringify(orderData, null, 2));
-          var transaction = orderData.purchase_units[0].payments.captures[0];
-          alert('Transaction' + transaction.status + ':' + transaction.id + '\n\nSee console for all details');
-
-          window.location.href = "/verify_payment?transaction_id=" + transaction.id;
-        }).catch(function (error) {
-          console.error("Capture error:", error);
-          alert('Error capturing order. Please try again or contact support.');
-        });
-      }
-    }).render('#paypal-button-container'); 
-  </script>
-</body>
-
+            window.location.href = "/verify_payment?transaction_id="+transaction.id;
+            
+          });
+        }
+      }).render('#paypal-button-container');
+    </script>
+  </body>
 </html>

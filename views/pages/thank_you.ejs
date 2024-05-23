@@ -1,4 +1,4 @@
-<h1>thankyou for ordering!</h1><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -147,11 +147,11 @@
   <section class="food_section layout_padding">
     <div class="container mt-2 text-center">
       <div class="heading_container heading_center">
-        <h4>
-          Thank You
-        </h4>
-        <h2>Your order id is: $<%= order_id %></h2>
-        <h3>We will deliver your product within 30 min.</h3>
+        <h2>
+          Thank You for Ordering!!
+        </h2><br/>
+        <h4>Your order id is: <%= order_id %></h4>
+        <h5>We will deliver your product within 30 min.</h5>
       </div>
     </div>
   </section>
@@ -262,29 +262,3 @@
 
 </html>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AXpKam4OYS0onzdCCvEJ_OC86nX047ZNuWBlFsvH077UOxFez2xYy8of1XpPgegIszQLiWsbHLR-ebl-
-&currency=USD"></script>
-    <!-- Set up a container element for the button -->
-    
-    <script>
-      paypal.Buttons({
-        createOrder:(data, actions)=> {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: '<%= total %>'
-              }
-            }]
-          })
-        },
-        onApprove: (data, actions)=>{
-          return actions.order.capture().then(function(orderData){
-            console.log("Capture result:" , orderData, JSON.stringify(orderData, null, 2));
-            var transaction = orderData.purchase_units[0].payments.captures[0];
-            alert('Transaction'+transaction.status+':'+transaction.id+'\n\nSee console for all details');
-
-            window.location.href = "/verify_payment?transaction_id="+transaction.id;
-          })
-        }
-      }).render('#paypal-button-container'); 
-    </script>
