@@ -1,3 +1,4 @@
+require('dotenv').config()
 var express = require('express')
 var paypal = require('paypal-rest-sdk');
 var ejs = require('ejs')
@@ -15,8 +16,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(session({secret:"secret", resave: true,
 saveUninitialized: true}))
-
-app.listen(5000);
+const port = process.env.PORT || 3000
+app.listen(port);
 
 function isProductInCart(cart, id){
     for(let i=0; i < cart.length; i++){
@@ -50,11 +51,11 @@ function calculateTotal(cart, req){
 
 app.get('/', function(req, res){
     var con = mysql.createConnection({
-        host:'localhost',
-        user:'root',
-        password:'anna123',
-        database: 'food_project',
-        port:3307
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        port: process.env.DB_PORT,
     });
 
     con.query('SELECT * FROM products', (err, result) => {
@@ -186,11 +187,11 @@ app.post('/place_order', function(req, res){
     req.session.order_id=id;
 
     var con = mysql.createConnection({
-        host:'localhost',
-        user:'root',
-        password:'anna123',
-        database: 'food_project',
-        port:3307
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        port: process.env.DB_PORT,
     });
 
     var cart = req.session.cart ||[];
@@ -234,11 +235,11 @@ app.get("/verify_payment",function(req,res){
     var order_id = req.session.order_id;
 
     var con = mysql.createConnection({
-        host:'localhost',
-        user:'root',
-        password:'anna123',
-        database: 'food_project',
-        port:3307
+       host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        port: process.env.DB_PORT,
     });
     con.connect((err)=>{
         if(err)
@@ -271,11 +272,11 @@ app.get("/single_product", function(req, res){
 
     var id = req.query.id;
     var con = mysql.createConnection({
-        host:'localhost',
-        user:'root',
-        password:'anna123',
-        database: 'food_project',
-        port:3307
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        port: process.env.DB_PORT,
     });
 
     con.query("SELECT * FROM products WHERE id='"+id+"'", (err, result) => {
@@ -294,11 +295,11 @@ app.get("/single_product", function(req, res){
 app.get("/products", function(req, res){
 
     var con = mysql.createConnection({
-        host:'localhost',
-        user:'root',
-        password:'anna123',
-        database: 'food_project',
-        port:3307
+       host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        port: process.env.DB_PORT,
     });
     con.query('SELECT * FROM products', (err, result) => {
         if (err) {
